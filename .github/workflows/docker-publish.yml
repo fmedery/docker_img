@@ -44,9 +44,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Push Docker image to GitHub Container Registry
-        uses: docker/push-to-ghcr-action@v3
-        with:
-          image: ghcr.io/${{ github.repository_owner }}/docker_test_image
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }} 
+# The redundant docker/push-to-ghcr-action step below this comment will be removed. 
