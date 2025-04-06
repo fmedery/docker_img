@@ -31,12 +31,27 @@ ipinfo_handler = None # Initialize as None, will be set in main block
 @app.route("/")
 def index():
     hostname = os.uname().nodename
-    # Generate a random hex color
-    random_color = "#{:06x}".format(random.randint(0, 0xFFFFFF))
+    # Define Google brand colors
+    google_colors = [
+        "#4285F4", # Blue
+        "#EA4335", # Red
+        "#FBBC04", # Yellow
+        "#34A853"  # Green
+    ]
+    # Choose a random color from the list
+    random_color = random.choice(google_colors)
 
     country_code = None
     country_name = None
-    ip_address = request.remote_addr
+
+    # Get IP address, checking X-Forwarded-For first for proxies
+    if "X-Forwarded-For" in request.headers:
+        # X-Forwarded-For can be a comma-separated list, take the first one (client)
+        ip_address = request.headers["X-Forwarded-For"].split(",")[0].strip()
+        print(f"Using IP from X-Forwarded-For: {ip_address}")
+    else:
+        ip_address = request.remote_addr
+        print(f"Using IP from remote_addr: {ip_address}")
 
     # Check for localhost/private IPs first to avoid unnecessary API calls
     is_local_ip = (not ip_address or
