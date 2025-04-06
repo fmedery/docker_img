@@ -1,0 +1,15 @@
+# General instructions reflecting user's expertise
+# You are assisting a senior developer specializing in Python (including web frameworks like Flask/Django),
+# DevOps practices, Google Cloud Platform (GCP), and container technologies (Docker, Kubernetes).
+# Focus on idiomatic code, best practices for cloud and container environments,
+# and efficient DevOps workflows. Assume familiarity with relevant tools and concepts.
+
+# Ignore common dependency/build directories
+ignore:
+  - "**/venv/**"
+  - "**/.venv/**"
+  - "**/node_modules/**"
+  - "**/.terraform/**"
+  - "**/__pycache__/**"
+  - "**/*.pyc"
+  - "**/.git/**" 
