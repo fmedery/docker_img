@@ -141,3 +141,35 @@ This repository includes a GitHub Actions workflow to automatically build and pu
     ```
 This push will trigger the GitHub Action, which will build and publish the image `ghcr.io/<your-github-username>/docker_test_image:vX.Y.Z`.
 
+## Using the Published Docker Image (from GHCR)
+
+Once the CI/CD pipeline has successfully published an image version (e.g., `v1.0.0`), you can pull and run it directly from the GitHub Container Registry (GHCR).
+
+1.  **Log in to GHCR:**
+    You need to authenticate Docker with GHCR. The recommended way is using a Personal Access Token (PAT) with the `read:packages` scope.
+    *   Create a PAT [here](https://github.com/settings/tokens) (select `read:packages` scope).
+    *   Log in using the PAT:
+        ```bash
+        # Replace <USERNAME> with your GitHub username 
+        # You will be prompted to enter your PAT as the password
+        docker login ghcr.io -u <USERNAME>
+        ```
+
+2.  **Pull the Image:**
+    Pull the specific version you want to use.
+    ```bash
+    # Replace <your-github-username> and <tag> (e.g., v1.0.0)
+    docker pull ghcr.io/<your-github-username>/docker_test_image:<tag>
+    ```
+
+3.  **Run the Image:**
+    Remember to provide the required `IPINFO_TOKEN` environment variable.
+    ```bash
+    # Replace <your-github-username> and <tag>
+    docker run --rm -p 9999:9999 \
+      -e IPINFO_TOKEN='YOUR_API_TOKEN_HERE' \
+      ghcr.io/<your-github-username>/docker_test_image:<tag>
+    ```
+
+4.  Access the application in your browser at `http://localhost:9999`.
+
