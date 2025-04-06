@@ -27,7 +27,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }} # Image name: ghcr.io/OWNER/REPO
+          images: ghcr.io/${{ github.repository_owner }}/{{github.repository}} # Changed image name
           # Automatically generates Docker tag from the Git tag
 
       - name: Set up Docker Buildx
